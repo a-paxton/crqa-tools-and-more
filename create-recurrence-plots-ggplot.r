@@ -1,3 +1,6 @@
+# Note: This method may produce a slight drift, especially with shorter time series. I will attempt to fix this in the future.
+# Per my own explorations, this is hardly noticeable for longer time series (over 300 samples per time series).
+
 # preliminaries
 library(crqa)
 library(ggplot2)
@@ -26,7 +29,7 @@ checkl = list(do = FALSE, thrshd = 3, datatype = "categorical", pad = TRUE)
 rec_analysis = crqa(ts1, ts2, delay, embed, rescale, radius, normalize, mindiagline, 
 	minvertline, tw, whiteline, recpt, side, checkl)
 
-# use ggplot2's qplot function to generate the recurrence plot (known problem: slight drift)
+# use ggplot2's qplot function to generate the recurrence plot
 qplot(rec_analysis$RP@i,seq_along(rec_analysis$RP@i), colour='red') +
   theme(legend.position="none",axis.text.x = element_blank(), axis.text.y = element_blank()) +
   ylab("Time Series 1") + xlab("Time Series 2")
