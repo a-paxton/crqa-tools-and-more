@@ -1,4 +1,4 @@
-#crqa-tools
+# crqa-tools
 
 Just some bits of script to help with CRQA analyses and plotting, mostly using the `crqa` package (Coco & Dale, 2014, *Frontiers in Psychology*) for R.
 
