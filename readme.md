@@ -1,12 +1,13 @@
-# crqa-tools
+# Resources for recurrence quantification analysis
 
 Tools and tutorials to help with RQA and CRQA.
 
 ## Tutorials
 
-Here are the tutorials that are currently available:
-+ `./tutorials/tutorial-continous_recurrence_parameter_settings.R`: Tutorial
-  for conducting manual parameter searches for `crqa` in R
+Here are the tutorials that are currently available for the `crqa` package:
++ `./tutorials/tutorial-continous_recurrence.R`: Tutorial for continuous
+  recurrence quantification analysis in R, including conducting manual parameter
+  search.
 
 ## Tools
 
