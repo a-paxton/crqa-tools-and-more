@@ -1,6 +1,6 @@
-#### Tutorial: Continuous recurrence parameter search ####
+#### Tutorial: Continuous recurrence ####
 #
-# These briefs exercise will walk you through performing continuous recurrence
+# These brief exercises will walk you through performing continuous recurrence
 # and cross-recurrence quantification analysis using manual parameter searches.
 #
 # Code written by: A. Paxton (University of Connecticut)
@@ -22,9 +22,9 @@ library(ggplot2)
 setwd('.')
 
 # read in the data
-circle_x = read.table('./circlexML.txt') %>%
+circle_x = read.table('./data/circlexML.txt') %>%
   .$V1
-circle_y = read.table('./circleyML.txt') %>%
+circle_y = read.table('./data/circleyML.txt') %>%
   .$V1
 
 #### 2. Recurrence quantification analysis ####
