@@ -1,6 +1,6 @@
-#### Exercises for Montreal Nonlinear Dynamics Workshop ####
+#### Tutorial: Continuous recurrence parameter search ####
 #
-# This brief exercise will walk you through performing continuous recurrence
+# These briefs exercise will walk you through performing continuous recurrence
 # and cross-recurrence quantification analysis using manual parameter searches.
 #
 # Code written by: A. Paxton (University of Connecticut)
