@@ -10,12 +10,13 @@ Here are the tutorials that are currently available:
 
 ## Tools
 
-Here are the current tools available:
+Here are the tools that are currently available:
 
-+ `./tools/create-recurrence-plots-ggplot.r`: Create recurrence plot with
-  `qplot` function from `ggplot2` package
-+ `./tools/create-recurrence-plots-standard.R`: Create recurrence plot with
-  standard `plot` function
++ Visualizations
+  + `./tools/create-recurrence-plots-ggplot.r`: Create recurrence plot with
+    `qplot` function from `ggplot2` package
+  + `./tools/create-recurrence-plots-standard.R`: Create recurrence plot with
+    standard `plot` function
 
 ## Dependencies
 
