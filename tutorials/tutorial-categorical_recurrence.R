@@ -82,16 +82,37 @@ recurrence_analysis_bland = crqa(ts1=bland,
 
 ######## 3c. Create the recurrence plot ########
 
-##  this is where you will create NEW crqa analysis variables that
-##  have the theiler window = 0
+# run rqa over hype with a Theiler window of 0 for plotting
+recurrence_analysis_plot_hype = crqa(ts1=hype,
+                                ts2=hype,
+                                delay=0,
+                                embed=1,
+                                rescale=0,
+                                radius=rec_categorical_radius,
+                                normalize=0,
+                                mindiagline=2,
+                                minvertline=2,
+                                tw=0)
+
+# run rqa over bland with a Theiler window of 0 for plotting
+recurrence_analysis_plot_bland = crqa(ts1=bland,
+                                 ts2=bland,
+                                 delay=0,
+                                 embed=1,
+                                 rescale=0,
+                                 radius=rec_categorical_radius,
+                                 normalize=0,
+                                 mindiagline=2,
+                                 minvertline=2,
+                                 tw=0)
 
 # convert bland and hype into dataframes for easier plotting
-bland_df = data.frame(points = recurrence_analysis_bland$RP@i,
-                      loc = seq_along(recurrence_analysis_bland$RP@i))
-hype_df = data.frame(points = recurrence_analysis_hype$RP@i,
-                     loc = seq_along(recurrence_analysis_hype$RP@i))
+bland_df = data.frame(points = recurrence_analysis_plot_bland$RP@i,
+                      loc = seq_along(recurrence_analysis_plot_bland$RP@i))
+hype_df = data.frame(points = recurrence_analysis_plot_hype$RP@i,
+                     loc = seq_along(recurrence_analysis_plot_hype$RP@i))
 
-# use ggplot2's qplot function to generate the bland recurrence plot
+# use ggplot2 to generate the bland RP
 ggplot(bland_df,aes(x=points,
                     y=loc)) +
   geom_point(color="purple",size=1) +
@@ -100,7 +121,7 @@ ggplot(bland_df,aes(x=points,
   ylab("Time (in letters)") + xlab("Time (in letters)") +
   ggtitle("Categorical recurrence quantification analysis of bland announcement")
 
-# use ggplot2's qplot function to generate the hype recurrence plot
+# use ggplot2 to generate the hype RP
 ggplot(hype_df,aes(x=points,
                    y=loc)) +
   geom_point(color="orange",size=1) +
@@ -138,11 +159,11 @@ cross_recurrence_analysis = crqa(ts1=truncated_bland,
 
 ######## 4c. Create the recurrence plot ########
 
-# convert bland and hype into dataframes for easier plotting
+# convert cross-recurrence output into a dataframe for easier plotting
 cross_rec_df = data.frame(points = cross_recurrence_analysis$RP@i,
                           loc = seq_along(cross_recurrence_analysis$RP@i))
 
-# use ggplot2's qplot function to generate the bland recurrence plot
+# build the CRP
 ggplot(cross_rec_df,aes(x=points,
                               y=loc)) +
   geom_point(color="red",size=1) +
