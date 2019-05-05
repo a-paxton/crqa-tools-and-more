@@ -54,7 +54,7 @@ plot(rec_ami)
 
 # select your delay from the AMI data
 rec_chosen_delay = 180
-rec_remaining_mutual_info =rec_ ami[chosen_delay]
+rec_remaining_mutual_info = rec_ami[rec_chosen_delay]
 
 ######## 3c. Determine embedding parameter ########
 
@@ -69,8 +69,8 @@ rec_fnn = false.nearest(circle_x,
 plot(rec_fnn)
 
 # select your embedding dimension from the FNN data
-rec_chosen_embedding = 5
-rec_remaining_fnn = rec_fnn[rec_chosen_embedding]
+rec_chosen_embedding = 6
+rec_remaining_fnn = rec_fnn[,rec_chosen_embedding]
 
 ######## 3d. Identify radius ########
 
@@ -91,7 +91,7 @@ rec_analysis = crqa(ts1 = rescaled_circle_x,
                     rescale = 0, 
                     mindiagline = 2,
                     minvertline = 2, 
-                    tw = 0, 
+                    tw = rec_theiler_window, 
                     whiteline = FALSE,
                     recpt=FALSE)
 
@@ -136,7 +136,8 @@ plot(cross_ami_y)
 
 # select your delay from the AMI data
 cross_chosen_delay = 180
-cross_remaining_mutual_info = cross_ami[cross_chosen_delay]
+cross_remaining_mutual_info_x = cross_ami_x[cross_chosen_delay]
+cross_remaining_mutual_info_y = cross_ami_y[cross_chosen_delay]
 
 ######## 4c. Determine embedding parameter ########
 
@@ -145,22 +146,22 @@ cross_max_embedding = 10
 
 # determine embedding
 cross_fnn_x = false.nearest(circle_x,
-                            m=cross_max_embedding,
-                            d=cross_chosen_delay,
-                            t=cross_theiler_window)
+                            m = cross_max_embedding,
+                            d = cross_chosen_delay,
+                            t = cross_theiler_window)
 
 # determine embedding
 cross_fnn_y = false.nearest(circle_y,
-                            m=cross_max_embedding,
-                            d=cross_chosen_delay,
-                            t=cross_theiler_window)
+                            m = cross_max_embedding,
+                            d = cross_chosen_delay,
+                            t = cross_theiler_window)
 
 # visualize your FNN results
 plot(cross_fnn_x)
 plot(cross_fnn_y)
 
 # select your embedding dimension from the FNN data
-cross_chosen_embedding = 5
+cross_chosen_embedding = 6
 cross_remaining_fnn_x = cross_fnn_x[cross_chosen_embedding]
 cross_remaining_fnn_y = cross_fnn_y[cross_chosen_embedding]
 
@@ -185,7 +186,7 @@ cross_rec_analysis = crqa(ts1 = rescaled_circle_x,
                           rescale = 0, 
                           mindiagline = 2,
                           minvertline = 2, 
-                          tw = 0, 
+                          tw = cross_theiler_window, 
                           whiteline = FALSE,
                           recpt=FALSE)
 
