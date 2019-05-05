@@ -4,7 +4,7 @@
 # and cross-recurrence quantification analysis using manual parameter searches.
 #
 # Code written by: A. Paxton (University of Connecticut)
-# Date last modified: 03 May 2019
+# Date last modified: 06 May 2019
 
 #### 1. Preliminaries ####
 
@@ -47,7 +47,8 @@ qplot(bland,
 
 ######## 3a. Recurrence parameter setting ########
 
-# decide Theiler window parameter (generally, 1 if RQA and 0 if CRQA)
+# decide Theiler window parameter
+# for categorical RQA with the `crqa` package, must be 1 to remove LOI
 rec_theiler_window = 1
 
 # set radius to be very small for categorical matches
@@ -112,7 +113,7 @@ ggplot(hype_df,aes(x=points,
 
 ######## 4a. Cross-recurrence parameter setting ########
 
-# decide Theiler window parameter (generally, 1 if RQA and 0 if CRQA)
+# decide Theiler window parameter
 cross_theiler_window = 0
 
 # set radius to be very small for categorical matches
