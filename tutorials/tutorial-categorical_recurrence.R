@@ -81,11 +81,14 @@ recurrence_analysis_bland = crqa(ts1=bland,
 
 ######## 3c. Create the recurrence plot ########
 
+##  this is where you will create NEW crqa analysis variables that
+##  have the theiler window = 0
+
 # convert bland and hype into dataframes for easier plotting
-bland_df = data.frame(points = recurrence_analysis_hype$RP@i,
-                      loc = seq_along(bland_rqa$RP@i))
-hype_df = data.frame(points = recurrence_analysis_bland$RP@i,
-                     loc = seq_along(hype_rqa$RP@i))
+bland_df = data.frame(points = recurrence_analysis_bland$RP@i,
+                      loc = seq_along(recurrence_analysis_bland$RP@i))
+hype_df = data.frame(points = recurrence_analysis_hype$RP@i,
+                     loc = seq_along(recurrence_analysis_hype$RP@i))
 
 # use ggplot2's qplot function to generate the bland recurrence plot
 ggplot(bland_df,aes(x=points,
@@ -118,7 +121,7 @@ cross_categorical_radius = .0001
 ######## 4b. Run cross-recurrence ########
 
 # truncate bland to length of hype
-truncated_bland = bland[1:length(hype)]
+truncated_bland = bland[1:length(hype)] 
 
 # run cross recurrence over each
 cross_recurrence_analysis = crqa(ts1=truncated_bland,

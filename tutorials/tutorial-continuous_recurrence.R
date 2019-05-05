@@ -8,7 +8,7 @@
 
 #### 1. Preliminaries ####
 
-# prep the workspace
+# prep the workspace  
 rm(list=ls())
 
 # load in libraries as needed
