@@ -113,7 +113,7 @@ ggplot(rqa_df,aes(x=points,
 
 ######## 4a. Cross-recurrence parameter setting ########
 
-# decide Theiler window parameter (generally, 1 if RQA and 0 if CRQA)
+# decide Theiler window parameter
 cross_theiler_window = 0
 
 # target rescale type (mean or max)
@@ -196,6 +196,7 @@ cross_rec_analysis = crqa(ts1 = rescaled_circle_x,
 cross_rqa_df = data.frame(points = cross_rec_analysis$RP@i,
                           loc = seq_along(cross_rec_analysis$RP@i))
 
+# generate the CRP
 ggplot(cross_rqa_df,aes(x=points,
                         y=loc)) +
   geom_point(color="red",size=.01) +
