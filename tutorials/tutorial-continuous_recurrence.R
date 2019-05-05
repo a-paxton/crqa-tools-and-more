@@ -4,7 +4,7 @@
 # and cross-recurrence quantification analysis using manual parameter searches.
 #
 # Code written by: A. Paxton (University of Connecticut)
-# Date last modified: 03 May 2019
+# Date last modified: 06 May 2019
 
 #### 1. Preliminaries ####
 
@@ -27,18 +27,23 @@ circle_x = read.table('./data/circlexML.txt') %>%
 circle_y = read.table('./data/circleyML.txt') %>%
   .$V1
 
-#### 2. Recurrence quantification analysis ####
+#### 2. Plotting your data ####
 
-######## 2a. Recurrence parameter setting ########
+plot(circle_x)
+plot(circle_y)
 
-# decide Theiler window parameter (generally, 1 if RQA and 0 if CRQA)
-rec_theiler_window = 1
+#### 3. Recurrence quantification analysis ####
+
+######## 3a. Recurrence parameter setting ########
+
+# decide Theiler window parameter
+rec_theiler_window = 0
 
 # target rescale type (mean or max)
 rec_rescale_type = 'mean'
 # rec_rescale_type = 'max'
 
-######## 2b. Determine delay ########
+######## 3b. Determine delay ########
 
 # determine delay
 rec_ami = mutual(circle_x,
@@ -51,7 +56,7 @@ plot(rec_ami)
 rec_chosen_delay = 180
 rec_remaining_mutual_info =rec_ ami[chosen_delay]
 
-######## 2c. Determine embedding parameter ########
+######## 3c. Determine embedding parameter ########
 
 # determine embedding
 rec_max_embedding = 10
@@ -67,7 +72,7 @@ plot(rec_fnn)
 rec_chosen_embedding = 5
 rec_remaining_fnn = rec_fnn[rec_chosen_embedding]
 
-######## 2d. Identify radius ########
+######## 3d. Identify radius ########
 
 # rescale your data (mean or max)
 if (rec_rescale_type == 'mean'){
@@ -90,7 +95,7 @@ rec_analysis = crqa(ts1 = rescaled_circle_x,
                     whiteline = FALSE,
                     recpt=FALSE)
 
-######## 2e. Create the recurrence plot ########
+######## 3e. Create the recurrence plot ########
 
 # convert to dataframe for easier graphing
 rqa_df = data.frame(points = rec_analysis$RP@i,
@@ -104,9 +109,9 @@ ggplot(rqa_df,aes(x=points,
   ylab("Time (in samples)") + xlab("Time (in samples)") +
   ggtitle("Recurrence plot for x-axis movement in a circle-drawing task")
 
-#### 3. Cross-recurrence quantification analysis ####
+#### 4. Cross-recurrence quantification analysis ####
 
-######## 3a. Cross-recurrence parameter setting ########
+######## 4a. Cross-recurrence parameter setting ########
 
 # decide Theiler window parameter (generally, 1 if RQA and 0 if CRQA)
 cross_theiler_window = 0
@@ -115,7 +120,7 @@ cross_theiler_window = 0
 cross_rescale_type = 'mean'
 # cross_rescale_type = 'max'
 
-######## 3b. Determine delay ########
+######## 4b. Determine delay ########
 
 # determine delay for x
 cross_ami_x = mutual(circle_x,
@@ -133,7 +138,7 @@ plot(cross_ami_y)
 cross_chosen_delay = 180
 cross_remaining_mutual_info = cross_ami[cross_chosen_delay]
 
-######## 3c. Determine embedding parameter ########
+######## 4c. Determine embedding parameter ########
 
 # set maximum max for both
 cross_max_embedding = 10
@@ -159,7 +164,7 @@ cross_chosen_embedding = 5
 cross_remaining_fnn_x = cross_fnn_x[cross_chosen_embedding]
 cross_remaining_fnn_y = cross_fnn_y[cross_chosen_embedding]
 
-######## 3d. Identify radius ########
+######## 4d. Identify radius ########
 
 # rescale your data (mean or max)
 if (cross_rescale_type == 'mean'){
@@ -184,7 +189,7 @@ cross_rec_analysis = crqa(ts1 = rescaled_circle_x,
                           whiteline = FALSE,
                           recpt=FALSE)
 
-######## 3e. Create the recurrence plot ########
+######## 4e. Create the cross-recurrence plot ########
 
 # convert to dataframe for easier graphing
 cross_rqa_df = data.frame(points = cross_rec_analysis$RP@i,
