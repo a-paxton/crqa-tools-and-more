@@ -19,7 +19,7 @@ library(crqa)
 library(ggplot2)
 
 # set working directory to appropriate location
-setwd('.')
+setwd('./')
 
 # read in the data
 circle_x = read.table('./data/circlexML.txt') %>%

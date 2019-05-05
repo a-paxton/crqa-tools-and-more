@@ -17,12 +17,12 @@ library(crqa)
 library(ggplot2)
 
 # set working directory to appropriate location
-setwd('./data')
+setwd('./')
 
 # read in the data
-bland = read.table("bland.txt", sep="\t") %>%
+bland = read.table("./data/bland.txt", sep="\t") %>%
   .$V1
-hype = read.table("hype.txt", sep="\t") %>%
+hype = read.table("./data/hype.txt", sep="\t") %>%
   .$V1
 
 #### 2. Plotting your data ####
