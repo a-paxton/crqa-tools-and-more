@@ -136,7 +136,7 @@ informative_df = data.frame(points = recurrence_analysis_plot_informative$RP@i,
 
 # use ggplot2 to generate the poetic RP
 ggplot(informative_df,aes(x=points,
-                     y=loc)) +
+                          y=loc)) +
   geom_point(color="purple",size=1) +
   theme_classic() +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
@@ -145,7 +145,7 @@ ggplot(informative_df,aes(x=points,
 
 # use ggplot2 to generate the informative RP
 ggplot(poetic_df,aes(x=points,
-                          y=loc)) +
+                     y=loc)) +
   geom_point(color="orange",size=1) +
   theme_classic() +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
@@ -203,3 +203,32 @@ ggplot(cross_rec_df,aes(x=points,
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   ylab("Time (in letters) of poetic text") + xlab("Time (in letters) of informative text") +
   ggtitle("Categorical cross-recurrence quantification analysis\nof poetic and informative texts about chickens")
+
+######## 4e. Create the diagonal recurrence profile ########
+
+# specify the window size (from negative win_size to 0 to positive win_size)
+win_size = 15
+
+# create the DRP
+chicken_drp = drpdfromts(ts1 = truncated_informative,
+                         ts2 = poetic,
+                         datatype="categorical",
+                         ws = win_size,
+                         delay=0,
+                         embed=1,
+                         rescale=0,
+                         radius=cross_categorical_radius,
+                         normalize=0,
+                         mindiagline=2,
+                         minvertline=2,
+                         tw=cross_theiler_window)
+
+# plot the DRP
+qplot(y = chicken_drp$profile, 
+      x = -win_size:win_size, 
+      geom="line") +
+  geom_line(color="red",size=1) +
+  theme_classic() +
+  theme(legend.position="none") +
+  ylab("% Recurrence") + xlab("Lag (in letters)") +
+  ggtitle("Diagonal recurrence profile\nof poetic and informative texts about chickens")
