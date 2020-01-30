@@ -32,20 +32,40 @@ informative = read.table("./data/chickens-informative-converted.txt", sep="\t") 
 #### 2. Plotting your data ####
 
 # plot the informative sequences
-qplot(informative,
-      x=seq_along(informative), geom="point") +
-  geom_path() +
+informative_seq = qplot(informative,
+                        x=seq_along(informative), geom="point") +
+  geom_path(color="purple") +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   xlab("Time (in letters)") + ylab("Letter number") +
   ggtitle("Character sequences in informative text")
+informative_seq
 
 # plot the poetic sequences
-qplot(poetic,
-      x=seq_along(poetic), geom="point") +
-  geom_path() +
+poetic_seq = qplot(poetic,
+                   x=seq_along(poetic), geom="point") +
+  geom_path(color="brown") +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   xlab("Time (in letters)") + ylab("Letter number") +
   ggtitle("Character sequences in poetic text")
+poetic_seq
+
+# plot the informative histogram
+informative_histogram = qplot(informative,
+                              geom="histogram") +
+  geom_histogram(fill="purple") +
+  theme(legend.position="none") +
+  xlab("Numeric-converted letter") + ylab("Frequency") +
+  ggtitle("Character frequencies in informative text")
+informative_histogram
+
+# plot the poetic histogram
+poetic_histogram = qplot(poetic,
+                         geom="histogram") +
+  geom_histogram(fill="brown") +
+  theme(legend.position="none") +
+  xlab("Numeric-converted letter") + ylab("Frequency") +
+  ggtitle("Character frequencies in poetic text")
+poetic_histogram
 
 #### 3. Recurrence quantification analysis ####
 
