@@ -1,10 +1,14 @@
 ######## Tutorial: Categorical recurrence ########
 #
 # These brief exercises will walk you through performing categorical recurrence
-# and cross-recurrence quantification analysis using manual parameter searches.
+# quantification analysis, including for auto- and cross-recurrence.
+#
+# Note: There is a known problem with the ggplot-based plotting in which the
+# LOI/LOS appears broken or disjointed, rather than a perfectly straight 
+# diagonal. I'm hoping to have a fix for it at some time in the future.
 #
 # Code written by: A. Paxton (University of Connecticut)
-# Date last modified: 06 May 2019
+# Date last modified: 30 January 2019
 
 #### 1. Preliminaries ####
 
@@ -20,28 +24,28 @@ library(ggplot2)
 setwd('./')
 
 # read in the data
-bland = read.table("./data/bland.txt", sep="\t") %>%
+poetic = read.table("./data/chickens-poetry-converted.txt", sep=" ") %>%
   .$V1
-hype = read.table("./data/hype.txt", sep="\t") %>%
+informative = read.table("./data/chickens-informative-converted.txt", sep="\t") %>%
   .$V1
 
 #### 2. Plotting your data ####
 
-# plot the hype sequences
-qplot(hype,
-      x=seq_along(hype), geom="point") +
+# plot the informative sequences
+qplot(informative,
+      x=seq_along(informative), geom="point") +
   geom_path() +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   xlab("Time (in letters)") + ylab("Letter number") +
-  ggtitle("Character sequences in hype announcement")
+  ggtitle("Character sequences in informative text")
 
-# plot the bland sequences
-qplot(bland,
-      x=seq_along(bland), geom="point") +
+# plot the poetic sequences
+qplot(poetic,
+      x=seq_along(poetic), geom="point") +
   geom_path() +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   xlab("Time (in letters)") + ylab("Letter number") +
-  ggtitle("Character sequences in bland announcement")
+  ggtitle("Character sequences in poetic text")
 
 #### 3. Recurrence quantification analysis ####
 
@@ -56,79 +60,97 @@ rec_categorical_radius = .0001
 
 ######## 3b. Run recurrence quantification analysis ########
 
-# run rqa over hype
-recurrence_analysis_hype = crqa(ts1=hype,
-                                ts2=hype,
-                                delay=0,
-                                embed=1,
-                                rescale=0,
-                                radius=rec_categorical_radius,
-                                normalize=0,
-                                mindiagline=2,
-                                minvertline=2,
-                                tw=rec_theiler_window)
+# run rqa over informative
+recurrence_analysis_informative = crqa(ts1=informative,
+                                       ts2=informative,
+                                       delay=0,
+                                       embed=1,
+                                       rescale=0,
+                                       radius=rec_categorical_radius,
+                                       normalize=0,
+                                       mindiagline=2,
+                                       minvertline=2,
+                                       tw=rec_theiler_window)
 
-# run rqa over bland
-recurrence_analysis_bland = crqa(ts1=bland,
-                                 ts2=bland,
-                                 delay=0,
-                                 embed=1,
-                                 rescale=0,
-                                 radius=rec_categorical_radius,
-                                 normalize=0,
-                                 mindiagline=2,
-                                 minvertline=2,
-                                 tw=rec_theiler_window)
+# run rqa over poetic
+recurrence_analysis_poetic = crqa(ts1=poetic,
+                                  ts2=poetic,
+                                  delay=0,
+                                  embed=1,
+                                  rescale=0,
+                                  radius=rec_categorical_radius,
+                                  normalize=0,
+                                  mindiagline=2,
+                                  minvertline=2,
+                                  tw=rec_theiler_window)
 
 ######## 3c. Create the recurrence plot ########
 
-# run rqa over hype with a Theiler window of 0 for plotting
-recurrence_analysis_plot_hype = crqa(ts1=hype,
-                                ts2=hype,
-                                delay=0,
-                                embed=1,
-                                rescale=0,
-                                radius=rec_categorical_radius,
-                                normalize=0,
-                                mindiagline=2,
-                                minvertline=2,
-                                tw=0)
+# run rqa over informative with a Theiler window of 0 for plotting
+recurrence_analysis_plot_informative = crqa(ts1=informative,
+                                            ts2=informative,
+                                            delay=0,
+                                            embed=1,
+                                            rescale=0,
+                                            radius=rec_categorical_radius,
+                                            normalize=0,
+                                            mindiagline=2,
+                                            minvertline=2,
+                                            tw=0)
 
-# run rqa over bland with a Theiler window of 0 for plotting
-recurrence_analysis_plot_bland = crqa(ts1=bland,
-                                 ts2=bland,
-                                 delay=0,
-                                 embed=1,
-                                 rescale=0,
-                                 radius=rec_categorical_radius,
-                                 normalize=0,
-                                 mindiagline=2,
-                                 minvertline=2,
-                                 tw=0)
+# run rqa over poetic with a Theiler window of 0 for plotting
+recurrence_analysis_plot_poetic = crqa(ts1=poetic,
+                                       ts2=poetic,
+                                       delay=0,
+                                       embed=1,
+                                       rescale=0,
+                                       radius=rec_categorical_radius,
+                                       normalize=0,
+                                       mindiagline=2,
+                                       minvertline=2,
+                                       tw=0)
 
-# convert bland and hype into dataframes for easier plotting
-bland_df = data.frame(points = recurrence_analysis_plot_bland$RP@i,
-                      loc = seq_along(recurrence_analysis_plot_bland$RP@i))
-hype_df = data.frame(points = recurrence_analysis_plot_hype$RP@i,
-                     loc = seq_along(recurrence_analysis_plot_hype$RP@i))
+# use the standard plotting functions
+par = list(unit = 2, 
+           labelx = "Letter", 
+           labely = "Letter", 
+           cols = "purple", 
+           pcex = 1)
+plotRP(recurrence_analysis_plot_informative$RP, par)
 
-# use ggplot2 to generate the bland RP
-ggplot(bland_df,aes(x=points,
-                    y=loc)) +
+# use the standard plotting functions
+par = list(unit = 2, 
+           labelx = "Letter", 
+           labely = "Letter", 
+           cols = "brown", 
+           pcex = 1)
+plotRP(recurrence_analysis_plot_poetic$RP, par)
+
+######## 3d. Use ggplot2 for plotting ########
+
+# convert poetic and informative into dataframes for easier plotting
+poetic_df = data.frame(points = recurrence_analysis_plot_poetic$RP@i,
+                       loc = seq_along(recurrence_analysis_plot_poetic$RP@i))
+informative_df = data.frame(points = recurrence_analysis_plot_informative$RP@i,
+                            loc = seq_along(recurrence_analysis_plot_informative$RP@i))
+
+# use ggplot2 to generate the poetic RP
+ggplot(informative_df,aes(x=points,
+                     y=loc)) +
   geom_point(color="purple",size=1) +
   theme_classic() +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   ylab("Time (in letters)") + xlab("Time (in letters)") +
-  ggtitle("Categorical recurrence quantification analysis of bland announcement")
+  ggtitle("Categorical recurrence quantification analysis of poetic text")
 
-# use ggplot2 to generate the hype RP
-ggplot(hype_df,aes(x=points,
-                   y=loc)) +
+# use ggplot2 to generate the informative RP
+ggplot(poetic_df,aes(x=points,
+                          y=loc)) +
   geom_point(color="orange",size=1) +
   theme_classic() +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   ylab("Time (in letters)") + xlab("Time (in letters)") +
-  ggtitle("Categorical recurrence quantification analysis of hype announcement")
+  ggtitle("Categorical recurrence quantification analysis of informative text")
 
 ######## 4. Cross-recurrence ########
 
@@ -142,12 +164,12 @@ cross_categorical_radius = .0001
 
 ######## 4b. Run cross-recurrence ########
 
-# truncate bland to length of hype
-truncated_bland = bland[1:length(hype)] 
+# truncate informative to length of poetic
+truncated_informative = informative[1:length(poetic)] 
 
 # run cross recurrence over each
-cross_recurrence_analysis = crqa(ts1=truncated_bland,
-                                 ts2=hype,
+cross_recurrence_analysis = crqa(ts1=truncated_informative,
+                                 ts2=poetic,
                                  delay=0,
                                  embed=1,
                                  rescale=0,
@@ -157,7 +179,17 @@ cross_recurrence_analysis = crqa(ts1=truncated_bland,
                                  minvertline=2,
                                  tw=cross_theiler_window)
 
-######## 4c. Create the recurrence plot ########
+######## 4c. Create the recurrence plot with standard plotting ########
+
+# use the standard plotting functions
+par = list(unit = 2, 
+           labelx = "Letter for informative text", 
+           labely = "Letter for poetic text", 
+           cols = "red", 
+           pcex = 1)
+plotRP(cross_recurrence_analysis$RP, par)
+
+######## 4d. Create the recurrence plot with ggplot2 ########
 
 # convert cross-recurrence output into a dataframe for easier plotting
 cross_rec_df = data.frame(points = cross_recurrence_analysis$RP@i,
@@ -165,9 +197,9 @@ cross_rec_df = data.frame(points = cross_recurrence_analysis$RP@i,
 
 # build the CRP
 ggplot(cross_rec_df,aes(x=points,
-                              y=loc)) +
+                        y=loc)) +
   geom_point(color="red",size=1) +
   theme_classic() +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
-  ylab("Time (in letters) of hype text") + xlab("Time (in letters) of bland text") +
-  ggtitle("Categorical cross-recurrence quantification analysis\nof hype and bland announcements")
+  ylab("Time (in letters) of poetic text") + xlab("Time (in letters) of informative text") +
+  ggtitle("Categorical cross-recurrence quantification analysis\nof poetic and informative texts about chickens")
