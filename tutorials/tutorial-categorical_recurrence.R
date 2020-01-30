@@ -8,7 +8,7 @@
 # diagonal. I'm hoping to have a fix for it at some time in the future.
 #
 # Code written by: A. Paxton (University of Connecticut)
-# Date last modified: 30 January 2019
+# Date last modified: 30 January 2020
 
 #### 1. Preliminaries ####
 
@@ -24,7 +24,7 @@ library(ggplot2)
 setwd('./')
 
 # read in the data
-poetic = read.table("./data/chickens-poetry-converted.txt", sep=" ") %>%
+poetic = read.table("./data/chickens-poetry-converted.txt", sep="\t") %>%
   .$V1
 informative = read.table("./data/chickens-informative-converted.txt", sep="\t") %>%
   .$V1
@@ -154,23 +154,23 @@ poetic_df = data.frame(points = recurrence_analysis_plot_poetic$RP@i,
 informative_df = data.frame(points = recurrence_analysis_plot_informative$RP@i,
                             loc = seq_along(recurrence_analysis_plot_informative$RP@i))
 
-# use ggplot2 to generate the poetic RP
+# use ggplot2 to generate the informative RP
 ggplot(informative_df,aes(x=points,
                           y=loc)) +
   geom_point(color="purple",size=1) +
   theme_classic() +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   ylab("Time (in letters)") + xlab("Time (in letters)") +
-  ggtitle("Categorical recurrence quantification analysis of poetic text")
+  ggtitle("Categorical recurrence quantification analysis of informative text")
 
-# use ggplot2 to generate the informative RP
+# use ggplot2 to generate the poetic RP
 ggplot(poetic_df,aes(x=points,
                      y=loc)) +
   geom_point(color="orange",size=1) +
   theme_classic() +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   ylab("Time (in letters)") + xlab("Time (in letters)") +
-  ggtitle("Categorical recurrence quantification analysis of informative text")
+  ggtitle("Categorical recurrence quantification analysis of poetic text")
 
 ######## 4. Cross-recurrence ########
 
