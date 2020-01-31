@@ -4,8 +4,8 @@
 # quantification analysis, including for auto- and cross-recurrence.
 #
 # Note: There is a known problem with the ggplot-based plotting in which the
-# LOI/LOS appears broken or disjointed, rather than a perfectly straight 
-# diagonal. I'm hoping to have a fix for it at some time in the future.
+#       LOI/LOS appears broken or disjointed, rather than a perfectly straight 
+#       diagonal. I'm hoping to have a fix for it at some time in the future.
 #
 # Code written by: A. Paxton (University of Connecticut)
 # Date last modified: 30 January 2020
@@ -15,7 +15,7 @@
 # prep the workspace
 rm(list=ls())
 
-# load in libraries as needed
+# load in libraries as needed -- be sure to install these if you don't have them!
 library(dplyr)
 library(crqa)
 library(ggplot2)
@@ -71,8 +71,7 @@ poetic_histogram
 
 ######## 3a. Recurrence parameter setting ########
 
-# decide Theiler window parameter
-# for categorical RQA with the `crqa` package, must be 1 to remove LOI
+# set the Theiler window parameter for RQA (should be 1 to ignore LOI in RQA)
 rec_theiler_window = 1
 
 # set radius to be very small for categorical matches
@@ -80,7 +79,7 @@ rec_categorical_radius = .0001
 
 ######## 3b. Run recurrence quantification analysis ########
 
-# run rqa over informative
+# run rqa over informative text
 recurrence_analysis_informative = crqa(ts1=informative,
                                        ts2=informative,
                                        delay=0,
@@ -92,7 +91,7 @@ recurrence_analysis_informative = crqa(ts1=informative,
                                        minvertline=2,
                                        tw=rec_theiler_window)
 
-# run rqa over poetic
+# run rqa over poetic text
 recurrence_analysis_poetic = crqa(ts1=poetic,
                                   ts2=poetic,
                                   delay=0,
@@ -106,6 +105,13 @@ recurrence_analysis_poetic = crqa(ts1=poetic,
 
 ######## 3c. Create the recurrence plot ########
 
+# Note: In order to get the line of identity to appear in these plots,
+#       you must run another `crqa()` function call with a Thieler window
+#       (`tw`) of 0 in order to preserve the line of identity in the plot.
+
+# set the Theiler window parameter for RP (should be 0 to keep LOI in RP)
+rec_tw_plotting = 0
+
 # run rqa over informative with a Theiler window of 0 for plotting
 recurrence_analysis_plot_informative = crqa(ts1=informative,
                                             ts2=informative,
@@ -116,7 +122,7 @@ recurrence_analysis_plot_informative = crqa(ts1=informative,
                                             normalize=0,
                                             mindiagline=2,
                                             minvertline=2,
-                                            tw=0)
+                                            tw=rec_tw_plotting)
 
 # run rqa over poetic with a Theiler window of 0 for plotting
 recurrence_analysis_plot_poetic = crqa(ts1=poetic,
@@ -128,9 +134,9 @@ recurrence_analysis_plot_poetic = crqa(ts1=poetic,
                                        normalize=0,
                                        mindiagline=2,
                                        minvertline=2,
-                                       tw=0)
+                                       tw=rec_tw_plotting)
 
-# use the standard plotting functions
+# use crqa package's native plotting function
 par = list(unit = 2, 
            labelx = "Letter", 
            labely = "Letter", 
@@ -138,7 +144,7 @@ par = list(unit = 2,
            pcex = 1)
 plotRP(recurrence_analysis_plot_informative$RP, par)
 
-# use the standard plotting functions
+# use crqa package's native plotting function
 par = list(unit = 2, 
            labelx = "Letter", 
            labely = "Letter", 
