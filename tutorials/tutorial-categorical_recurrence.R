@@ -35,6 +35,7 @@ informative = read.table("./data/chickens-informative-converted.txt", sep="\t") 
 informative_seq = qplot(informative,
                         x=seq_along(informative), geom="point") +
   geom_path(color="purple") +
+  geom_point(color="purple") +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   xlab("Time (in letters)") + ylab("Letter number") +
   ggtitle("Character sequences in informative text")
@@ -43,7 +44,8 @@ informative_seq
 # plot the poetic sequences
 poetic_seq = qplot(poetic,
                    x=seq_along(poetic), geom="point") +
-  geom_path(color="brown") +
+  geom_path(color="orange") +
+  geom_point(color="orange") +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
   xlab("Time (in letters)") + ylab("Letter number") +
   ggtitle("Character sequences in poetic text")
@@ -61,7 +63,7 @@ informative_histogram
 # plot the poetic histogram
 poetic_histogram = qplot(poetic,
                          geom="histogram") +
-  geom_histogram(fill="brown") +
+  geom_histogram(fill="orange") +
   theme(legend.position="none") +
   xlab("Numeric-converted letter") + ylab("Frequency") +
   ggtitle("Character frequencies in poetic text")
@@ -148,7 +150,7 @@ plotRP(recurrence_analysis_plot_informative$RP, par)
 par = list(unit = 2, 
            labelx = "Letter", 
            labely = "Letter", 
-           cols = "brown", 
+           cols = "orange", 
            pcex = 1)
 plotRP(recurrence_analysis_plot_poetic$RP, par)
 
