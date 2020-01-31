@@ -154,13 +154,37 @@ par = list(unit = 2,
            pcex = 1)
 plotRP(recurrence_analysis_plot_poetic$RP, par)
 
-######## 3d. Use ggplot2 for plotting ########
+######## 3d. Inspect the RQA metrics ########
 
-# convert poetic and informative into dataframes for easier plotting
-poetic_df = data.frame(points = recurrence_analysis_plot_poetic$RP@i,
-                       loc = seq_along(recurrence_analysis_plot_poetic$RP@i))
+# take a look at the quantification metrics for informative text
+recurrence_analysis_informative$RR # rate of recurrence
+recurrence_analysis_informative$DET # % determinism
+recurrence_analysis_informative$NRLINE # total number of lines on the plot
+recurrence_analysis_informative$maxL # maximum line length on plot
+recurrence_analysis_informative$L # average line length on plot
+recurrence_analysis_informative$ENTR # entropy
+recurrence_analysis_informative$rENTR # normalized entropy
+recurrence_analysis_informative$LAM # laminarity
+recurrence_analysis_informative$TT # trapping time
+
+# take a look at the quantification metrics for poetic text
+recurrence_analysis_poetic$RR # rate of recurrence
+recurrence_analysis_poetic$DET # % determinism
+recurrence_analysis_poetic$NRLINE # total number of lines on the plot
+recurrence_analysis_poetic$maxL # maximum line length on plot
+recurrence_analysis_poetic$L # average line length on plot
+recurrence_analysis_poetic$ENTR # entropy
+recurrence_analysis_poetic$rENTR # normalized entropy
+recurrence_analysis_poetic$LAM # laminarity
+recurrence_analysis_poetic$TT # trapping time
+
+######## 3e. Use ggplot2 for plotting ########
+
+# convert informative and poetic into dataframes for easier plotting
 informative_df = data.frame(points = recurrence_analysis_plot_informative$RP@i,
                             loc = seq_along(recurrence_analysis_plot_informative$RP@i))
+poetic_df = data.frame(points = recurrence_analysis_plot_poetic$RP@i,
+                       loc = seq_along(recurrence_analysis_plot_poetic$RP@i))
 
 # use ggplot2 to generate the informative RP
 ggplot(informative_df,aes(x=points,
