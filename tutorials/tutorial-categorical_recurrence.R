@@ -183,30 +183,33 @@ recurrence_analysis_poetic$LAM # laminarity
 recurrence_analysis_poetic$TT # trapping time
 
 ######## 3e. Use ggplot2 for plotting ########
-
-# convert informative and poetic into dataframes for easier plotting
-informative_df = data.frame(points = recurrence_analysis_plot_informative$RP@i,
-                            loc = seq_along(recurrence_analysis_plot_informative$RP@i))
-poetic_df = data.frame(points = recurrence_analysis_plot_poetic$RP@i,
-                       loc = seq_along(recurrence_analysis_plot_poetic$RP@i))
-
-# use ggplot2 to generate the informative RP
-ggplot(informative_df,aes(x=points,
-                          y=loc)) +
-  geom_point(color="purple",size=1) +
-  theme_classic() +
-  theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
-  ylab("Time (in letters)") + xlab("Time (in letters)") +
-  ggtitle("Categorical recurrence quantification analysis of informative text")
-
-# use ggplot2 to generate the poetic RP
-ggplot(poetic_df,aes(x=points,
-                     y=loc)) +
-  geom_point(color="orange",size=1) +
-  theme_classic() +
-  theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
-  ylab("Time (in letters)") + xlab("Time (in letters)") +
-  ggtitle("Categorical recurrence quantification analysis of poetic text")
+# 
+# Note: Because of the known issue for ggplot, this section is 
+#       commented out by default.
+#
+# # convert informative and poetic into dataframes for easier plotting
+# informative_df = data.frame(points = recurrence_analysis_plot_informative$RP@i,
+#                             loc = seq_along(recurrence_analysis_plot_informative$RP@i))
+# poetic_df = data.frame(points = recurrence_analysis_plot_poetic$RP@i,
+#                        loc = seq_along(recurrence_analysis_plot_poetic$RP@i))
+# 
+# # use ggplot2 to generate the informative RP
+# ggplot(informative_df,aes(x=points,
+#                           y=loc)) +
+#   geom_point(color="purple",size=1) +
+#   theme_classic() +
+#   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
+#   ylab("Time (in letters)") + xlab("Time (in letters)") +
+#   ggtitle("Categorical recurrence quantification analysis of informative text")
+# 
+# # use ggplot2 to generate the poetic RP
+# ggplot(poetic_df,aes(x=points,
+#                      y=loc)) +
+#   geom_point(color="orange",size=1) +
+#   theme_classic() +
+#   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
+#   ylab("Time (in letters)") + xlab("Time (in letters)") +
+#   ggtitle("Categorical recurrence quantification analysis of poetic text")
 
 ######## 4. Cross-recurrence ########
 
