@@ -156,6 +156,10 @@ plotRP(recurrence_analysis_plot_poetic$RP, par)
 
 ######## 3d. Inspect the RQA metrics ########
 
+# Note: You must use the recurrence analysis variables created in 
+#       Section 3b (NOT the plotting ones created in Section 3c)
+#       to get the correct RQA values.
+
 # take a look at the quantification metrics for informative text
 recurrence_analysis_informative$RR # rate of recurrence
 recurrence_analysis_informative$DET # % determinism
