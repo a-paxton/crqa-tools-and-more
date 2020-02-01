@@ -74,7 +74,7 @@ poetic_histogram
 ######## 3a. Recurrence parameter setting ########
 
 # set the Theiler window parameter for RQA (should be 1 to ignore LOI in RQA)
-rec_theiler_window = 1
+rec_tw_quantification = 1
 
 # set radius to be very small for categorical matches
 rec_categorical_radius = .0001
@@ -91,7 +91,7 @@ recurrence_analysis_informative = crqa(ts1=informative,
                                        normalize=0,
                                        mindiagline=2,
                                        minvertline=2,
-                                       tw=rec_theiler_window)
+                                       tw=rec_tw_quantification)
 
 # run rqa over poetic text
 recurrence_analysis_poetic = crqa(ts1=poetic,
@@ -103,7 +103,7 @@ recurrence_analysis_poetic = crqa(ts1=poetic,
                                   normalize=0,
                                   mindiagline=2,
                                   minvertline=2,
-                                  tw=rec_theiler_window)
+                                  tw=rec_tw_quantification)
 
 ######## 3c. Create the recurrence plot ########
 
@@ -112,7 +112,7 @@ recurrence_analysis_poetic = crqa(ts1=poetic,
 #       (`tw`) of 0 in order to preserve the line of identity in the plot.
 
 # set the Theiler window parameter for RP (should be 0 to keep LOI in RP)
-rec_tw_plotting = 0
+rec_tw_plot = 0
 
 # run rqa over informative with a Theiler window of 0 for plotting
 recurrence_analysis_plot_informative = crqa(ts1=informative,
@@ -124,7 +124,7 @@ recurrence_analysis_plot_informative = crqa(ts1=informative,
                                             normalize=0,
                                             mindiagline=2,
                                             minvertline=2,
-                                            tw=rec_tw_plotting)
+                                            tw=rec_tw_plot)
 
 # run rqa over poetic with a Theiler window of 0 for plotting
 recurrence_analysis_plot_poetic = crqa(ts1=poetic,
@@ -136,7 +136,7 @@ recurrence_analysis_plot_poetic = crqa(ts1=poetic,
                                        normalize=0,
                                        mindiagline=2,
                                        minvertline=2,
-                                       tw=rec_tw_plotting)
+                                       tw=rec_tw_plot)
 
 # use crqa package's native plotting function
 par = list(unit = 2, 
