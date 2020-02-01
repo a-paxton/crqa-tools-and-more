@@ -108,7 +108,7 @@ recurrence_analysis_poetic = crqa(ts1=poetic,
 ######## 3c. Create the recurrence plot ########
 
 # Note: In order to get the line of identity to appear in these plots,
-#       you must run another `crqa()` function call with a Thieler window
+#       you must run another `crqa()` function call with a Theiler window
 #       (`tw`) of 0 in order to preserve the line of identity in the plot.
 
 # set the Theiler window parameter for RP (should be 0 to keep LOI in RP)
