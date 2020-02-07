@@ -250,18 +250,34 @@ plotRP(cross_recurrence_analysis$RP, par)
 
 ######## 4d. Inspect the CRQA metrics ########
 
-# convert cross-recurrence output into a dataframe for easier plotting
-cross_rec_df = data.frame(points = cross_recurrence_analysis$RP@i,
-                          loc = seq_along(cross_recurrence_analysis$RP@i))
+# take a look at the quantification metrics for CRQA across texts
+cross_recurrence_analysis$RR # rate of recurrence
+cross_recurrence_analysis$DET # % determinism
+cross_recurrence_analysis$NRLINE # total number of lines on the plot
+cross_recurrence_analysis$maxL # maximum line length on plot
+cross_recurrence_analysis$L # average line length on plot
+cross_recurrence_analysis$ENTR # entropy
+cross_recurrence_analysis$rENTR # normalized entropy
+cross_recurrence_analysis$LAM # laminarity
+cross_recurrence_analysis$TT # trapping time
 
-# build the CRP
-ggplot(cross_rec_df,aes(x=points,
-                        y=loc)) +
-  geom_point(color="red",size=1) +
-  theme_classic() +
-  theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
-  ylab("Time (in letters) of poetic text") + xlab("Time (in letters) of informative text") +
-  ggtitle("Categorical cross-recurrence quantification analysis\nof poetic and informative texts about chickens")
+######## 4d. Visualize RP with ggplot ########
+
+# Note: Because of the known issue for ggplot RP generation, this 
+#       section is commented out by default.
+# 
+# # convert cross-recurrence output into a dataframe for easier plotting
+# cross_rec_df = data.frame(points = cross_recurrence_analysis$RP@i,
+#                           loc = seq_along(cross_recurrence_analysis$RP@i))
+# 
+# # build the CRP
+# ggplot(cross_rec_df,aes(x=points,
+#                         y=loc)) +
+#   geom_point(color="red",size=1) +
+#   theme_classic() +
+#   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
+#   ylab("Time (in letters) of poetic text") + xlab("Time (in letters) of informative text") +
+#   ggtitle("Categorical cross-recurrence quantification analysis\nof poetic and informative texts about chickens")
 
 ######## 4e. Create the diagonal recurrence profile ########
 
