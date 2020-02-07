@@ -8,7 +8,7 @@
 #       diagonal. I'm hoping to have a fix for it at some time in the future.
 #
 # Code written by: A. Paxton (University of Connecticut)
-# Date last modified: 30 January 2020
+# Date last modified: 07 February 2020
 
 #### 1. Preliminaries ####
 

@@ -4,7 +4,7 @@
 # and cross-recurrence quantification analysis using manual parameter searches.
 #
 # Code written by: A. Paxton (University of Connecticut)
-# Date last modified: 06 May 2019
+# Date last modified: 07 February 2020
 
 #### 1. Preliminaries ####
 
