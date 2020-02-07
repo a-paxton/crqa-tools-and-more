@@ -72,7 +72,7 @@ plot(rec_fnn)
 rec_chosen_embedding = 6
 rec_remaining_fnn = rec_fnn[,rec_chosen_embedding]
 
-######## 3d. Identify radius ########
+######## 3d. Select radius and run CRQA ########
 
 # rescale your data (mean or max) -- not related to the distance matrix rescaling
 if (rec_rescale_type == 'mean'){
@@ -165,7 +165,7 @@ cross_chosen_embedding = 6
 cross_remaining_fnn_x = cross_fnn_x[cross_chosen_embedding]
 cross_remaining_fnn_y = cross_fnn_y[cross_chosen_embedding]
 
-######## 4d. Identify radius ########
+######## 4d. Select radius and run CRQA ########
 
 # rescale your data (mean or max) -- not related to the distance matrix rescaling
 if (cross_rescale_type == 'mean'){
