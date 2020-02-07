@@ -97,17 +97,44 @@ rec_analysis = crqa(ts1 = rescaled_circle_x,
 
 ######## 3e. Create the recurrence plot ########
 
-# convert to dataframe for easier graphing
-rqa_df = data.frame(points = rec_analysis$RP@i,
-                    loc = seq_along(rec_analysis$RP@i))
+# use the standard plotting functions
+par = list(unit = 2, 
+           labelx = "x-axis movement", 
+           labely = "x-axis movement", 
+           cols = "red", 
+           pcex = 1)
+plotRP(rec_analysis$RP, par)
 
-ggplot(rqa_df,aes(x=points,
-                  y=loc)) +
-  geom_point(color="red",size=.01) +
-  theme_classic() +
-  theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
-  ylab("Time (in samples)") + xlab("Time (in samples)") +
-  ggtitle("Recurrence plot for x-axis movement in a circle-drawing task")
+######## 3f. Inspect the CRQA metrics ########
+
+# take a look at the quantification metrics for CRQA across x- and y-axis movement
+rec_analysis$RR # rate of recurrence
+rec_analysis$DET # % determinism
+rec_analysis$NRLINE # total number of lines on the plot
+rec_analysis$maxL # maximum line length on plot
+rec_analysis$L # average line length on plot
+rec_analysis$ENTR # entropy
+rec_analysis$rENTR # normalized entropy
+rec_analysis$LAM # laminarity
+rec_analysis$TT # trapping time
+
+######## 3g. Visualize RP with ggplot ########
+
+# Note: Because of the known issue for ggplot RP generation, this 
+#       section is commented out by default.
+# 
+# 
+# # convert to dataframe for easier graphing
+# rqa_df = data.frame(points = rec_analysis$RP@i,
+#                     loc = seq_along(rec_analysis$RP@i))
+# 
+# ggplot(rqa_df,aes(x=points,
+#                   y=loc)) +
+#   geom_point(color="red",size=.01) +
+#   theme_classic() +
+#   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
+#   ylab("Time (in samples)") + xlab("Time (in samples)") +
+#   ggtitle("Recurrence plot for x-axis movement in a circle-drawing task")
 
 #### 4. Cross-recurrence quantification analysis ####
 
@@ -192,15 +219,41 @@ cross_rec_analysis = crqa(ts1 = rescaled_circle_x,
 
 ######## 4e. Create the cross-recurrence plot ########
 
-# convert to dataframe for easier graphing
-cross_rqa_df = data.frame(points = cross_rec_analysis$RP@i,
-                          loc = seq_along(cross_rec_analysis$RP@i))
+# use the standard plotting functions
+par = list(unit = 2, 
+           labelx = "x-axis movement", 
+           labely = "y-axis movement", 
+           cols = "red", 
+           pcex = 1)
+plotRP(cross_rec_analysis$RP, par)
 
-# generate the CRP
-ggplot(cross_rqa_df,aes(x=points,
-                        y=loc)) +
-  geom_point(color="red",size=.01) +
-  theme_classic() +
-  theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
-  ylab("Time for y-axis movement") + xlab("Time for x-axis movement") +
-  ggtitle("Cross-recurrence plot between\nx- and y-axis movement in a circle-drawing task")
+######## 4f. Inspect the CRQA metrics ########
+
+# take a look at the quantification metrics for CRQA across x- and y-axis movement
+cross_rec_analysis$RR # rate of recurrence
+cross_rec_analysis$DET # % determinism
+cross_rec_analysis$NRLINE # total number of lines on the plot
+cross_rec_analysis$maxL # maximum line length on plot
+cross_rec_analysis$L # average line length on plot
+cross_rec_analysis$ENTR # entropy
+cross_rec_analysis$rENTR # normalized entropy
+cross_rec_analysis$LAM # laminarity
+cross_rec_analysis$TT # trapping time
+
+######## 4g. Visualize RP with ggplot ########
+
+# Note: Because of the known issue for ggplot RP generation, this 
+#       section is commented out by default.
+# 
+# # convert to dataframe for easier graphing
+# cross_rqa_df = data.frame(points = cross_rec_analysis$RP@i,
+#                           loc = seq_along(cross_rec_analysis$RP@i))
+# 
+# # generate the CRP
+# ggplot(cross_rqa_df,aes(x=points,
+#                         y=loc)) +
+#   geom_point(color="red",size=.01) +
+#   theme_classic() +
+#   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
+#   ylab("Time for y-axis movement") + xlab("Time for x-axis movement") +
+#   ggtitle("Cross-recurrence plot between\nx- and y-axis movement in a circle-drawing task")
