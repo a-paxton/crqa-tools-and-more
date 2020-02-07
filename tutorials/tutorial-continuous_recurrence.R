@@ -74,7 +74,7 @@ rec_remaining_fnn = rec_fnn[,rec_chosen_embedding]
 
 ######## 3d. Identify radius ########
 
-# rescale your data (mean or max)
+# rescale your data (mean or max) -- not related to the distance matrix rescaling
 if (rec_rescale_type == 'mean'){
   rescaled_circle_x = circle_x / mean(circle_x)
 } else if (rec_rescale_type == 'max'){
@@ -88,7 +88,7 @@ rec_analysis = crqa(ts1 = rescaled_circle_x,
                     embed = rec_chosen_embedding, 
                     r = .1, # you can keep playing with this to find something that works
                     normalize = 0, 
-                    rescale = 0, 
+                    rescale = 0, # distance matrix rescaling option -- see documentation
                     mindiagline = 2,
                     minvertline = 2, 
                     tw = rec_theiler_window, 
@@ -167,7 +167,7 @@ cross_remaining_fnn_y = cross_fnn_y[cross_chosen_embedding]
 
 ######## 4d. Identify radius ########
 
-# rescale your data (mean or max)
+# rescale your data (mean or max) -- not related to the distance matrix rescaling
 if (cross_rescale_type == 'mean'){
   rescaled_circle_x = circle_x / mean(circle_x)
   rescaled_circle_y = circle_y / mean(circle_y)
@@ -183,7 +183,7 @@ cross_rec_analysis = crqa(ts1 = rescaled_circle_x,
                           embed = cross_chosen_embedding, 
                           r = .3, # you can keep playing with this to find something that works
                           normalize = 0, 
-                          rescale = 0, 
+                          rescale = 0, # distance matrix rescaling option -- see documentation
                           mindiagline = 2,
                           minvertline = 2, 
                           tw = cross_theiler_window, 
