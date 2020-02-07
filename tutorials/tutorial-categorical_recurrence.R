@@ -71,7 +71,7 @@ poetic_histogram
 
 #### 3. Recurrence quantification analysis ####
 
-######## 3a. Recurrence parameter setting ########
+######## 3a. Set parameters for recurrence ########
 
 # set the Theiler window parameter for RQA (should be 1 to ignore LOI in RQA)
 rec_tw_quantification = 1
@@ -182,10 +182,10 @@ recurrence_analysis_poetic$rENTR # normalized entropy
 recurrence_analysis_poetic$LAM # laminarity
 recurrence_analysis_poetic$TT # trapping time
 
-######## 3e. Use ggplot2 for plotting ########
-# 
-# Note: Because of the known issue for ggplot, this section is 
-#       commented out by default.
+######## 3e. Visualize RP with ggplot ########
+
+# Note: Because of the known issue for ggplot RP generation, this 
+#       section is commented out by default.
 #
 # # convert informative and poetic into dataframes for easier plotting
 # informative_df = data.frame(points = recurrence_analysis_plot_informative$RP@i,
@@ -213,7 +213,7 @@ recurrence_analysis_poetic$TT # trapping time
 
 ######## 4. Cross-recurrence ########
 
-######## 4a. Cross-recurrence parameter setting ########
+######## 4a. Set parameters for cross-recurrence ########
 
 # decide Theiler window parameter
 cross_theiler_window = 0
@@ -238,7 +238,7 @@ cross_recurrence_analysis = crqa(ts1=truncated_informative,
                                  minvertline=2,
                                  tw=cross_theiler_window)
 
-######## 4c. Create the recurrence plot with standard plotting ########
+######## 4c. Create the recurrence plot ########
 
 # use the standard plotting functions
 par = list(unit = 2, 
@@ -248,7 +248,7 @@ par = list(unit = 2,
            pcex = 1)
 plotRP(cross_recurrence_analysis$RP, par)
 
-######## 4d. Create the recurrence plot with ggplot2 ########
+######## 4d. Inspect the CRQA metrics ########
 
 # convert cross-recurrence output into a dataframe for easier plotting
 cross_rec_df = data.frame(points = cross_recurrence_analysis$RP@i,
