@@ -1,6 +1,8 @@
-# Resources for recurrence quantification analysis
+# Resources for nonlinear analyses
 
-Tools and tutorials to help with RQA and CRQA.
+Tools and tutorials to help with recurrence quantification analysis (RQA),
+cross-recurrence quantification analysis (CRQA), and detrended fluctuation
+analysis (DFA).
 
 ## Tutorials
 
@@ -12,6 +14,7 @@ Here are the tutorials that are currently available:
 + `./tutorials/tutorial-continous_recurrence.R`: Tutorial for continuous
   recurrence quantification analysis and cross-recurrence quantification
   analysis in R, including conducting manual parameter search.
++ `./tutorials/tutorial-dfa.R`: Tutorial for detrended fluctuation analysis.
 
 Data for the tutorials are included in the `./tutorials/data/` directory.
 
@@ -22,8 +25,13 @@ The informative text on chickens comes from the "Chicken" entry from Wikipedia
 from "Last Night I Dreamed of Chickens" by Jack Prelutsky
 (https://poets.org/poem/last-night-i-dreamed-chickens).
 
-The converted versions of all files come thanks to [Rick Dale](https://co-mind.org/ati/)'s
+The converted versions of the text files come thanks to [Rick Dale](https://co-mind.org/ati/)'s
 [free "Text Converter" tool](https://co-mind.org/ati/converter.html).
+
+The data for the fractal analysis are courtesy of the 
+[U.S. National Oceanic and Atmospheric Association](https://www.noaa.gov/)'s
+[Climate Data Online API](https://www.ncdc.noaa.gov/cdo-web/search) from the
+[National Centers for Environmental Information](https://www.ncei.noaa.gov/).
 
 ## Tools
 
@@ -40,7 +48,7 @@ Here are the tools that are currently available:
 To run these, you will need the following R packages:
 
 + `crqa` (Coco & Dale, 2014, *Frontiers in Psychology*)
-+ `dplyr`
++ `tidyr`
 + `nonlinearTseries`
 + `tseriesChaos`
 + `ggplot2`
