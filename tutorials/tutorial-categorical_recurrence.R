@@ -1,14 +1,10 @@
-######## Tutorial: Categorical recurrence ########
+######## Tutorial: Categorical recurrence and cross-recurrence ########
 #
 # These brief exercises will walk you through performing categorical recurrence
 # quantification analysis, including for auto- and cross-recurrence.
 #
-# Note: There is a known problem with the ggplot-based plotting in which the
-#       LOI/LOS appears broken or disjointed, rather than a perfectly straight 
-#       diagonal. I'm hoping to have a fix for it at some time in the future.
-#
 # Code written by: A. Paxton (University of Connecticut)
-# Date last modified: 07 February 2020
+# Date last modified: 27 January 2025
 
 #### 1. Preliminaries ####
 
