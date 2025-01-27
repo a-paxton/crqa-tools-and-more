@@ -138,21 +138,19 @@ recurrence_analysis_plot_poetic = crqa(ts1=poetic$word,
                                        minvertline=2,
                                        tw=rec_tw_plot)
 
-# use crqa package's native plotting function
-par = list(unit = 2, 
-           labelx = "Letter", 
-           labely = "Letter", 
-           cols = "purple", 
-           pcex = 1)
-plotRP(recurrence_analysis_plot_informative$RP, par)
-
-# use crqa package's native plotting function
-par = list(unit = 2, 
-           labelx = "Letter", 
-           labely = "Letter", 
-           cols = "orange", 
-           pcex = 1)
-plotRP(recurrence_analysis_plot_poetic$RP, par)
+# build our recurrence plots
+plot_rp(recurrence_analysis_plot_informative$RP, 
+        title = "Recurrence Plot of\nInformative Chicken Text",
+        pcolour = "purple",
+        xlabel = "Letter",
+        ylabel = "Letter",
+        geom = "point")
+plot_rp(recurrence_analysis_plot_poetic$RP, 
+        title = "Recurrence Plot of\nPoetic Chicken Text",
+        pcolour = "orange",
+        xlabel = "Letter",
+        ylabel = "Letter",
+        geom = "point")
 
 ######## 3d. Inspect the RQA metrics ########
 
@@ -242,12 +240,12 @@ cross_recurrence_analysis = crqa(ts1=truncated_informative$word,
 ######## 4c. Create the recurrence plot ########
 
 # use the standard plotting functions
-par = list(unit = 2, 
-           labelx = "Letter for informative text", 
-           labely = "Letter for poetic text", 
-           cols = "red", 
-           pcex = 1)
-plotRP(cross_recurrence_analysis$RP, par)
+plot_rp(cross_recurrence_analysis$RP, 
+        title = "Cross-Recurrence Plot of\nTwo Chicken Texts",
+        pcolour = "red",
+        xlabel = "Letter for informative",
+        ylabel = "Letter for poetic",
+        geom = "point")
 
 ######## 4d. Inspect the CRQA metrics ########
 
@@ -261,24 +259,6 @@ cross_recurrence_analysis$ENTR # entropy
 cross_recurrence_analysis$rENTR # normalized entropy
 cross_recurrence_analysis$LAM # laminarity
 cross_recurrence_analysis$TT # trapping time
-
-######## 4d. Visualize RP with ggplot ########
-
-# Note: Because of the known issue for ggplot RP generation, this 
-#       section is commented out by default.
-# 
-# # convert cross-recurrence output into a dataframe for easier plotting
-# cross_rec_df = data.frame(points = cross_recurrence_analysis$RP@i,
-#                           loc = seq_along(cross_recurrence_analysis$RP@i))
-# 
-# # build the CRP
-# ggplot(cross_rec_df,aes(x=points,
-#                         y=loc)) +
-#   geom_point(color="red",size=1) +
-#   theme_classic() +
-#   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
-#   ylab("Time (in letters) of poetic text") + xlab("Time (in letters) of informative text") +
-#   ggtitle("Categorical cross-recurrence quantification analysis\nof poetic and informative texts about chickens")
 
 ######## 4e. Create the diagonal recurrence profile ########
 
