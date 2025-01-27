@@ -255,10 +255,10 @@ chicken_drp_data = data.frame(profile = chicken_drp$profile,
                               lag = -win_size:win_size)
 
 # plot the DRP
-qplot(y = chicken_drp$profile, 
-      x = -win_size:win_size, 
-      geom="line") +
-  geom_line(color="red",size=1) +
+ggplot(data = chicken_drp_data,
+       aes(y = profile, 
+           x = lag)) +
+  geom_line(color="red",linewidth=1) +
   theme_classic() +
   theme(legend.position="none") +
   ylab("% Recurrence") + xlab("Lag (in letters)") +
