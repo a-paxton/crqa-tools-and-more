@@ -21,9 +21,11 @@ setwd('./')
 
 # read in the data
 poetic = read.table("./data/chickens-poetry-converted.txt", sep="\t") %>%
-  .$V1
+  rename(word = V1) %>%
+  tibble::rowid_to_column("seq_loc")
 informative = read.table("./data/chickens-informative-converted.txt", sep="\t") %>%
-  .$V1
+  rename(word = V1) %>%
+  tibble::rowid_to_column("seq_loc")
 
 #### 2. Plotting your data ####
 
