@@ -30,8 +30,9 @@ informative = read.table("./data/chickens-informative-converted.txt", sep="\t") 
 #### 2. Plotting your data ####
 
 # plot the informative sequences
-informative_seq = qplot(informative,
-                        x=seq_along(informative), geom="point") +
+informative_seq = ggplot(data = informative,
+                         aes(x = seq_loc,
+                             y = word)) +
   geom_path(color="purple") +
   geom_point(color="purple") +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
@@ -40,8 +41,9 @@ informative_seq = qplot(informative,
 informative_seq
 
 # plot the poetic sequences
-poetic_seq = qplot(poetic,
-                   x=seq_along(poetic), geom="point") +
+poetic_seq = ggplot(data = poetic,
+                    aes(x = seq_loc,
+                        y = word)) +
   geom_path(color="orange") +
   geom_point(color="orange") +
   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
@@ -50,18 +52,18 @@ poetic_seq = qplot(poetic,
 poetic_seq
 
 # plot the informative histogram
-informative_histogram = qplot(informative,
-                              geom="histogram") +
-  geom_histogram(fill="purple") +
+informative_histogram = ggplot(data = informative,
+                               aes(x = word)) +
+  geom_histogram(fill="purple", bins = 30) +
   theme(legend.position="none") +
   xlab("Numeric-converted letter") + ylab("Frequency") +
   ggtitle("Character frequencies in informative text")
 informative_histogram
 
 # plot the poetic histogram
-poetic_histogram = qplot(poetic,
-                         geom="histogram") +
-  geom_histogram(fill="orange") +
+poetic_histogram = ggplot(data = poetic,
+                          aes(x = word)) +
+  geom_histogram(fill="orange", bins = 30) +
   theme(legend.position="none") +
   xlab("Numeric-converted letter") + ylab("Frequency") +
   ggtitle("Character frequencies in poetic text")
