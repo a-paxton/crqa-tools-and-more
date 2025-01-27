@@ -82,8 +82,8 @@ rec_categorical_radius = .0001
 ######## 3b. Run recurrence quantification analysis ########
 
 # run rqa over informative text
-recurrence_analysis_informative = crqa(ts1=informative,
-                                       ts2=informative,
+recurrence_analysis_informative = crqa(ts1=informative$word,
+                                       ts2=informative$word,
                                        delay=0,
                                        embed=1,
                                        rescale=0,
@@ -94,8 +94,8 @@ recurrence_analysis_informative = crqa(ts1=informative,
                                        tw=rec_tw_quantification)
 
 # run rqa over poetic text
-recurrence_analysis_poetic = crqa(ts1=poetic,
-                                  ts2=poetic,
+recurrence_analysis_poetic = crqa(ts1=poetic$word,
+                                  ts2=poetic$word,
                                   delay=0,
                                   embed=1,
                                   rescale=0,
@@ -115,8 +115,8 @@ recurrence_analysis_poetic = crqa(ts1=poetic,
 rec_tw_plot = 0
 
 # run rqa over informative with a Theiler window of 0 for plotting
-recurrence_analysis_plot_informative = crqa(ts1=informative,
-                                            ts2=informative,
+recurrence_analysis_plot_informative = crqa(ts1=informative$word,
+                                            ts2=informative$word,
                                             delay=0,
                                             embed=1,
                                             rescale=0,
@@ -127,8 +127,8 @@ recurrence_analysis_plot_informative = crqa(ts1=informative,
                                             tw=rec_tw_plot)
 
 # run rqa over poetic with a Theiler window of 0 for plotting
-recurrence_analysis_plot_poetic = crqa(ts1=poetic,
-                                       ts2=poetic,
+recurrence_analysis_plot_poetic = crqa(ts1=poetic$word,
+                                       ts2=poetic$word,
                                        delay=0,
                                        embed=1,
                                        rescale=0,
@@ -224,11 +224,12 @@ cross_categorical_radius = .0001
 ######## 4b. Run cross-recurrence ########
 
 # truncate informative to length of poetic
-truncated_informative = informative[1:length(poetic)] 
+truncated_informative = informative %>%
+  slice(1:dim(poetic)[1])
 
 # run cross recurrence over each
-cross_recurrence_analysis = crqa(ts1=truncated_informative,
-                                 ts2=poetic,
+cross_recurrence_analysis = crqa(ts1=truncated_informative$word,
+                                 ts2=poetic$word,
                                  delay=0,
                                  embed=1,
                                  rescale=0,
@@ -285,18 +286,22 @@ cross_recurrence_analysis$TT # trapping time
 win_size = 15
 
 # create the DRP
-chicken_drp = drpdfromts(ts1 = truncated_informative,
-                         ts2 = poetic,
-                         datatype="categorical",
-                         ws = win_size,
-                         delay=0,
-                         embed=1,
-                         rescale=0,
-                         radius=cross_categorical_radius,
-                         normalize=0,
-                         mindiagline=2,
-                         minvertline=2,
-                         tw=cross_theiler_window)
+chicken_drp = drpfromts(ts1 = truncated_informative$word,
+                        ts2 = poetic$word,
+                        datatype="categorical",
+                        windowsize = win_size,
+                        delay=0,
+                        embed=1,
+                        rescale=0,
+                        radius=cross_categorical_radius,
+                        normalize=0,
+                        mindiagline=2,
+                        minvertline=2,
+                        tw=cross_theiler_window)
+
+# make a dataframe for easier plotting
+chicken_drp_data = data.frame(profile = chicken_drp$profile,
+                              lag = -win_size:win_size)
 
 # plot the DRP
 qplot(y = chicken_drp$profile, 
