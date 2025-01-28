@@ -69,47 +69,11 @@ poetic_histogram = ggplot(data = poetic,
   ggtitle("Character frequencies in poetic text")
 poetic_histogram
 
-#### 3. Recurrence quantification analysis ####
-
-######## 3a. Set parameters for recurrence ########
-
-# set the Theiler window parameter for RQA (should be 1 to ignore LOI in RQA)
-rec_tw_quantification = 1
-
-# set radius to be very small for categorical matches
-rec_categorical_radius = .0001
-
-######## 3b. Run recurrence quantification analysis ########
-
-# run rqa over informative text
-recurrence_analysis_informative = crqa(ts1=informative$word,
-                                       ts2=informative$word,
-                                       delay=0,
-                                       embed=1,
-                                       rescale=0,
-                                       radius=rec_categorical_radius,
-                                       normalize=0,
-                                       mindiagline=2,
-                                       minvertline=2,
-                                       tw=rec_tw_quantification)
-
-# run rqa over poetic text
-recurrence_analysis_poetic = crqa(ts1=poetic$word,
-                                  ts2=poetic$word,
-                                  delay=0,
-                                  embed=1,
-                                  rescale=0,
-                                  radius=rec_categorical_radius,
-                                  normalize=0,
-                                  mindiagline=2,
-                                  minvertline=2,
-                                  tw=rec_tw_quantification)
-
-######## 3c. Create the recurrence plot ########
+#### 3. Recurrence plots ####
 
 # Note: In order to get the line of identity to appear in these plots,
-#       you must run another `crqa()` function call with a Theiler window
-#       (`tw`) of 0 in order to preserve the line of identity in the plot.
+#       you must use a Theiler window (`tw`) of 0. If you are planning to run
+#       RQA, you must then run a second `crqa()` call that includes a `tw` of 1.
 
 # set the Theiler window parameter for RP (should be 0 to keep LOI in RP)
 rec_tw_plot = 0
@@ -152,10 +116,52 @@ plot_rp(recurrence_analysis_plot_poetic$RP,
         ylabel = "Letter",
         geom = "point")
 
-######## 3d. Inspect the RQA metrics ########
+#### 4. Recurrence quantification analyses ####
+
+##### 4a. Set parameters for recurrence quantification #####
+
+# Note: In order to ignore the line of identity in the RQA analysis,
+#       you must use a Theiler window (`tw`) of 1. If you are planning to merely build
+#       the recurrence plot, you must also then run a `crqa()` call that includes 
+#       a `tw` of 0 (as we did in Section 3).
+
+# set the Theiler window parameter for RQA (should be 1 to ignore LOI in RQA)
+rec_tw_quantification = 1
+
+# set radius to be very small for categorical matches
+rec_categorical_radius = .0001
+
+##### 4b. Run recurrence quantification analysis #####
+
+# run rqa over informative text
+recurrence_analysis_informative = crqa(ts1=informative$word,
+                                       ts2=informative$word,
+                                       delay=0,
+                                       embed=1,
+                                       rescale=0,
+                                       radius=rec_categorical_radius,
+                                       normalize=0,
+                                       mindiagline=2,
+                                       minvertline=2,
+                                       tw=rec_tw_quantification)
+
+# run rqa over poetic text
+recurrence_analysis_poetic = crqa(ts1=poetic$word,
+                                  ts2=poetic$word,
+                                  delay=0,
+                                  embed=1,
+                                  rescale=0,
+                                  radius=rec_categorical_radius,
+                                  normalize=0,
+                                  mindiagline=2,
+                                  minvertline=2,
+                                  tw=rec_tw_quantification)
+
+
+##### 4d. Inspect the RQA metrics ##### 
 
 # Note: You must use the recurrence analysis variables created in 
-#       Section 3b (NOT the plotting ones created in Section 3c)
+#       Section 4 (NOT the plotting ones created in Section 3)
 #       to get the correct RQA values.
 
 # take a look at the quantification metrics for informative text
