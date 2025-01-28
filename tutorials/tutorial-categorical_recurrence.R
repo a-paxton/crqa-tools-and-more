@@ -186,9 +186,9 @@ recurrence_analysis_poetic$rENTR # normalized entropy
 recurrence_analysis_poetic$LAM # laminarity
 recurrence_analysis_poetic$TT # trapping time
 
-######## 4. Cross-recurrence ########
+#### 5. Cross-recurrence ####
 
-######## 4a. Set parameters for cross-recurrence ########
+##### 5a. Set parameters for cross-recurrence ##### 
 
 # decide Theiler window parameter
 cross_theiler_window = 0
@@ -196,7 +196,7 @@ cross_theiler_window = 0
 # set radius to be very small for categorical matches
 cross_categorical_radius = .0001
 
-######## 4b. Run cross-recurrence ########
+##### 5b. Run cross-recurrence #####
 
 # truncate informative to length of poetic
 truncated_informative = informative %>%
@@ -214,7 +214,7 @@ cross_recurrence_analysis = crqa(ts1=truncated_informative$word,
                                  minvertline=2,
                                  tw=cross_theiler_window)
 
-######## 4c. Create the recurrence plot ########
+##### 5c. Create the recurrence plot ##### 
 
 # use the standard plotting functions
 plot_rp(cross_recurrence_analysis$RP, 
@@ -224,7 +224,7 @@ plot_rp(cross_recurrence_analysis$RP,
         ylabel = "Letter for poetic",
         geom = "point")
 
-######## 4d. Inspect the CRQA metrics ########
+##### 5d. Inspect the CRQA metrics #####
 
 # take a look at the quantification metrics for CRQA across texts
 cross_recurrence_analysis$RR # rate of recurrence
@@ -237,7 +237,7 @@ cross_recurrence_analysis$rENTR # normalized entropy
 cross_recurrence_analysis$LAM # laminarity
 cross_recurrence_analysis$TT # trapping time
 
-######## 4e. Create the diagonal recurrence profile ########
+##### 5e. Create the diagonal recurrence profile #####
 
 # specify the window size (from negative win_size to 0 to positive win_size)
 win_size = 15
