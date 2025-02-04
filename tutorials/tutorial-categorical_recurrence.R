@@ -78,6 +78,9 @@ poetic_histogram
 # set the Theiler window parameter for RP (should be 0 to keep LOI in RP)
 rec_tw_plot = 0
 
+# set radius to be very small for categorical matches
+rec_categorical_radius = .0001
+
 # run rqa over informative with a Theiler window of 0 for plotting
 recurrence_analysis_plot_informative = crqa(ts1=informative$word,
                                             ts2=informative$word,
@@ -127,9 +130,6 @@ plot_rp(recurrence_analysis_plot_poetic$RP,
 
 # set the Theiler window parameter for RQA (should be 1 to ignore LOI in RQA)
 rec_tw_quantification = 1
-
-# set radius to be very small for categorical matches
-rec_categorical_radius = .0001
 
 ##### 4b. Run recurrence quantification analysis #####
 
