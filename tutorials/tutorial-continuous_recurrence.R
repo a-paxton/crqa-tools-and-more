@@ -74,17 +74,30 @@ rec_fnn = false.nearest(circle_x,
 plot(rec_fnn)
 
 # select your embedding dimension from the FNN data
-rec_chosen_embedding = 6
+rec_chosen_embedding = 4
 rec_remaining_fnn = rec_fnn[,rec_chosen_embedding]
 
 ######## 3d. Select radius and run CRQA ########
 
-# rescale your data (mean or max) -- not related to the distance matrix rescaling
-if (rec_rescale_type == 'mean'){
-  rescaled_circle_x = circle_x / mean(circle_x)
-} else if (rec_rescale_type == 'max'){
-  rescaled_circle_x = circle_x / max(circle_x)
-}
+# set additional varables
+rec_normalize = 0 # rescaling the input -- no need to do this if we've z-scaled already
+rec_rescale = 1 # distance matrix rescaling option -- let's choose mean-rescaling
+rec_radius = .25 # radius -- try different ones! what happens?
+
+# run RQA for analysis
+rec_analysis = crqa::crqa(ts1 = rescale_circle_x, 
+                          ts2 = rescale_circle_x,
+                          delay = rec_chosen_delay, 
+                          embed = rec_chosen_embedding, 
+                          radius = rec_radius, 
+                          normalize = rec_normalize, 
+                          rescale = rec_rescale,
+                          tw = rec_tw_analysis, 
+                          whiteline = FALSE,
+                          datatype = "continuous",
+                          method = "rqa")
+
+######## 3e. Create the recurrence plot ########
 
 # run RQA
 rec_analysis = crqa(ts1 = rescaled_circle_x, 
