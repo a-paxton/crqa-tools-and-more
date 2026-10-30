@@ -4,7 +4,7 @@
 # and cross-recurrence quantification analysis using manual parameter searches.
 #
 # Code written by: A. Paxton (University of Connecticut)
-# Date last modified: 07 February 2020
+# Date last modified: 30 October 2026
 
 #### 1. Preliminaries ####
 
@@ -21,16 +21,25 @@ library(ggplot2)
 # set working directory to appropriate location
 setwd('./')
 
-# read in the data
+# read in the raw data
 circle_x = read.table('./data/circlexML.txt') %>%
   .$V1
 circle_y = read.table('./data/circleyML.txt') %>%
   .$V1
 
+# rescaled data
+rescale_circle_x = as.numeric(scale(circle_x))
+rescale_circle_y = as.numeric(scale(circle_y))
+
 #### 2. Plotting your data ####
 
+# raw data
 plot(circle_x)
 plot(circle_y)
+
+# rescaled data
+plot(rescale_circle_x)
+plot(rescale_circle_y)
 
 #### 3. Recurrence quantification analysis ####
 
