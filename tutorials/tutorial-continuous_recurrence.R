@@ -58,8 +58,8 @@ rec_ami = mutual(circle_x,
 plot(rec_ami)
 
 # select your delay from the AMI data
-rec_chosen_delay = 180
-rec_remaining_mutual_info = rec_ami[rec_chosen_delay]
+rec_chosen_delay = 164 + 1 # remember: the named vector starts with 0! -- so add 1
+rec_remaining_mutual_info = rec_ami[rec_chosen_delay] # confirm with this
 
 ######## 3c. Determine embedding parameter ########
 
