@@ -46,11 +46,7 @@ plot(rescale_circle_y)
 ######## 3a. Recurrence parameter setting ########
 
 # decide Theiler window parameter
-rec_theiler_window = 0
-
-# target rescale type (mean or max)
-rec_rescale_type = 'mean'
-# rec_rescale_type = 'max'
+rec_tw_analysis = 1
 
 ######## 3b. Determine delay ########
 
@@ -72,7 +68,7 @@ rec_max_embedding = 10
 rec_fnn = false.nearest(circle_x,
                         m=rec_max_embedding,
                         d=rec_chosen_delay,
-                        t=rec_theiler_window)
+                        t=rec_tw_analysis)
 
 # visualize your FNN results
 plot(rec_fnn)
