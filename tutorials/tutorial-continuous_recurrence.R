@@ -99,29 +99,24 @@ rec_analysis = crqa::crqa(ts1 = rescale_circle_x,
 
 ######## 3e. Create the recurrence plot ########
 
-# run RQA
-rec_analysis = crqa(ts1 = rescaled_circle_x, 
-                    ts2 = rescaled_circle_x,
+# set plotting-related theiler window
+rec_tw_plot = 0
+
+# run RQA for plotting
+rec_rp = crqa::crqa(ts1 = rescale_circle_x, 
+                    ts2 = rescale_circle_x,
                     delay = rec_chosen_delay, 
                     embed = rec_chosen_embedding, 
-                    r = .1, # you can keep playing with this to find something that works
-                    normalize = 0, 
-                    rescale = 0, # distance matrix rescaling option -- see documentation
-                    mindiagline = 2,
-                    minvertline = 2, 
-                    tw = rec_theiler_window, 
+                    radius = rec_radius, 
+                    normalize = rec_normalize, 
+                    rescale = rec_rescale,
+                    tw = rec_tw_analysis, 
                     whiteline = FALSE,
-                    recpt=FALSE)
-
-######## 3e. Create the recurrence plot ########
+                    datatype = "continuous",
+                    method = "rqa")
 
 # use the standard plotting functions
-par = list(unit = 2, 
-           labelx = "x-axis movement", 
-           labely = "x-axis movement", 
-           cols = "red", 
-           pcex = 1)
-plotRP(rec_analysis$RP, par)
+plot_rp(rec_rp$RP)
 
 ######## 3f. Inspect the CRQA metrics ########
 
@@ -135,143 +130,3 @@ rec_analysis$ENTR # entropy
 rec_analysis$rENTR # normalized entropy
 rec_analysis$LAM # laminarity
 rec_analysis$TT # trapping time
-
-######## 3g. Visualize RP with ggplot ########
-
-# Note: Because of the known issue for ggplot RP generation, this 
-#       section is commented out by default.
-# 
-# 
-# # convert to dataframe for easier graphing
-# rqa_df = data.frame(points = rec_analysis$RP@i,
-#                     loc = seq_along(rec_analysis$RP@i))
-# 
-# ggplot(rqa_df,aes(x=points,
-#                   y=loc)) +
-#   geom_point(color="red",size=.01) +
-#   theme_classic() +
-#   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
-#   ylab("Time (in samples)") + xlab("Time (in samples)") +
-#   ggtitle("Recurrence plot for x-axis movement in a circle-drawing task")
-
-#### 4. Cross-recurrence quantification analysis ####
-
-######## 4a. Cross-recurrence parameter setting ########
-
-# decide Theiler window parameter
-cross_theiler_window = 0
-
-# target rescale type (mean or max)
-cross_rescale_type = 'mean'
-# cross_rescale_type = 'max'
-
-######## 4b. Determine delay ########
-
-# determine delay for x
-cross_ami_x = mutual(circle_x,
-                     lag.max = 800)
-
-# determine delay for y
-cross_ami_y = mutual(circle_y,
-                     lag.max = 800)
-
-# visualize your AMI results
-plot(cross_ami_x)
-plot(cross_ami_y)
-
-# select your delay from the AMI data
-cross_chosen_delay = 180
-cross_remaining_mutual_info_x = cross_ami_x[cross_chosen_delay]
-cross_remaining_mutual_info_y = cross_ami_y[cross_chosen_delay]
-
-######## 4c. Determine embedding parameter ########
-
-# set maximum max for both
-cross_max_embedding = 10
-
-# determine embedding
-cross_fnn_x = false.nearest(circle_x,
-                            m = cross_max_embedding,
-                            d = cross_chosen_delay,
-                            t = cross_theiler_window)
-
-# determine embedding
-cross_fnn_y = false.nearest(circle_y,
-                            m = cross_max_embedding,
-                            d = cross_chosen_delay,
-                            t = cross_theiler_window)
-
-# visualize your FNN results
-plot(cross_fnn_x)
-plot(cross_fnn_y)
-
-# select your embedding dimension from the FNN data
-cross_chosen_embedding = 6
-cross_remaining_fnn_x = cross_fnn_x[cross_chosen_embedding]
-cross_remaining_fnn_y = cross_fnn_y[cross_chosen_embedding]
-
-######## 4d. Select radius and run CRQA ########
-
-# rescale your data (mean or max) -- not related to the distance matrix rescaling
-if (cross_rescale_type == 'mean'){
-  rescaled_circle_x = circle_x / mean(circle_x)
-  rescaled_circle_y = circle_y / mean(circle_y)
-} else if (cross_rescale_type == 'max'){
-  rescaled_circle_x = circle_x / max(circle_x)
-  rescaled_circle_y = circle_x / max(circle_y)
-}
-
-# run CRQA and grab recurrence rate (RR)
-cross_rec_analysis = crqa(ts1 = rescaled_circle_x, 
-                          ts2 = rescaled_circle_y,
-                          delay = cross_chosen_delay, 
-                          embed = cross_chosen_embedding, 
-                          r = .3, # you can keep playing with this to find something that works
-                          normalize = 0, 
-                          rescale = 0, # distance matrix rescaling option -- see documentation
-                          mindiagline = 2,
-                          minvertline = 2, 
-                          tw = cross_theiler_window, 
-                          whiteline = FALSE,
-                          recpt=FALSE)
-
-######## 4e. Create the cross-recurrence plot ########
-
-# use the standard plotting functions
-par = list(unit = 2, 
-           labelx = "x-axis movement", 
-           labely = "y-axis movement", 
-           cols = "red", 
-           pcex = 1)
-plotRP(cross_rec_analysis$RP, par)
-
-######## 4f. Inspect the CRQA metrics ########
-
-# take a look at the quantification metrics for CRQA across x- and y-axis movement
-cross_rec_analysis$RR # rate of recurrence
-cross_rec_analysis$DET # % determinism
-cross_rec_analysis$NRLINE # total number of lines on the plot
-cross_rec_analysis$maxL # maximum line length on plot
-cross_rec_analysis$L # average line length on plot
-cross_rec_analysis$ENTR # entropy
-cross_rec_analysis$rENTR # normalized entropy
-cross_rec_analysis$LAM # laminarity
-cross_rec_analysis$TT # trapping time
-
-######## 4g. Visualize RP with ggplot ########
-
-# Note: Because of the known issue for ggplot RP generation, this 
-#       section is commented out by default.
-# 
-# # convert to dataframe for easier graphing
-# cross_rqa_df = data.frame(points = cross_rec_analysis$RP@i,
-#                           loc = seq_along(cross_rec_analysis$RP@i))
-# 
-# # generate the CRP
-# ggplot(cross_rqa_df,aes(x=points,
-#                         y=loc)) +
-#   geom_point(color="red",size=.01) +
-#   theme_classic() +
-#   theme(legend.position="none", axis.text.x = element_blank(), axis.text.y = element_blank()) +
-#   ylab("Time for y-axis movement") + xlab("Time for x-axis movement") +
-#   ggtitle("Cross-recurrence plot between\nx- and y-axis movement in a circle-drawing task")
