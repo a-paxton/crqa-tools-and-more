@@ -1,7 +1,10 @@
 #### Tutorial: Continuous recurrence ####
 #
 # These brief exercises will walk you through performing continuous recurrence
-# and cross-recurrence quantification analysis using manual parameter searches.
+# quantification analysis using manual parameter searches.
+#
+# For continuous cross-recurrence quantification analysis, see the 
+# `tutorial-continuous_cross_recurrence.R` file in this repository.
 #
 # Code written by: A. Paxton (University of Connecticut)
 # Date last modified: 30 October 2026
