@@ -122,9 +122,9 @@ rec_rp = crqa::crqa(ts1 = rescale_circle_x,
 # use the standard plotting functions
 plot_rp(rec_rp$RP)
 
-######## 3f. Inspect the CRQA metrics ########
+######## 3f. Inspect the RQA metrics ########
 
-# take a look at the quantification metrics for CRQA across x- and y-axis movement
+# take a look at the quantification metrics for RQA across x-axis movement
 rec_analysis$RR # rate of recurrence
 rec_analysis$DET # % determinism
 rec_analysis$NRLINE # total number of lines on the plot
