@@ -79,7 +79,7 @@ plot(rec_fnn)
 
 # select your embedding dimension from the FNN data
 rec_chosen_embedding = 4
-rec_remaining_fnn = rec_fnn[,rec_chosen_embedding]
+rec_remaining_nn = rec_fnn[,rec_chosen_embedding] # total neighborhood, not fraction lost
 
 ######## 3d. Select radius and run CRQA ########
 
